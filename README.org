@@ -1,0 +1,55 @@
+* About
+
+This repository provides two versions close to my theme
+[[https://github.com/tonyaldon/emacs.d/blob/master/themes/discreet-theme.el][discreet-theme.el]] I'm using within emacs.
+
+One is to be used with [[http://highlightjs.org][Highlight.js]] and the other with [[https://pygments.org/][Pygments]].
+
+[[./discreet-theme.png]]
+
+* Motivation
+
+There already exists cool dark themes out there for highlightjs (see
+[[https://highlightjs.org/static/demo/][highlightjs demo]]), but for concistency I wanted the one I'm using
+everyday within emacs.
+
+* Install
+** with Highlight.js
+
+1. Copy the file [[./discreet-theme.css]] in your project.
+
+2. Include the file ~discreet-theme.css~ in your html file and turn on
+   highlightjs by adding these snippet the ~<head>~ tag:
+
+   #+BEGIN_SRC html
+   <link rel="stylesheet" href="discreet-theme.css">
+   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+   <script>hljs.initHighlightingOnLoad();</script>
+   #+END_SRC
+
+** with Pygments
+
+If the code snippets you want to highlight has been generated with
+Pygments either from ~python~ or with the command lines ~pygmentize~,
+put the file [[./discreet-theme-pygments.css]] in your project and include
+it in your html file by adding the following line the ~<head>~ tag:
+
+#+BEGIN_SRC html
+<link rel="stylesheet" href="discreet-theme-pygments.css">
+#+END_SRC
+
+* Dev
+
+The ~dev/public/index.html~ contains some chunks of code (~bash~,
+~html~, ~css~, ~javascript~, ~python~) and can be serve as static
+files with ~express~. To do so, follow the 3 steps below.
+
+1. Install dev depencies by running the command:
+
+   : npm install
+
+2. Serve the app and watch the files by running the command:
+
+   : npm run dev
+
+3. Open the ~index.html~ in your browser at the url ~localhost:3000/index.html~.
