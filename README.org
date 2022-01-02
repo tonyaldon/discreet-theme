@@ -49,6 +49,7 @@ I use [[https://browsersync.io/][browser-sync]] to serve files and reload the br
 are modified.
 
 ** highlightjs
+*** hot reloading
 
 By running the following command, you start a server at
 [[http://localhost:3000]] that serve the file [[./dev/highlightjs/index.html]]
@@ -61,7 +62,9 @@ browser-sync dev/highlightjs/ -s -w --files "./dev/highlightjs/*"
 
 You can use it, to develop the theme for highlightjs modifying the
 file [[./dev/highlightjs/discreet-theme.css]].
+
 ** Pygments
+*** hot reloading
 
 By running the following command, you start a server at
 [[http://localhost:3000]] that serve the file [[./dev/pygments/index.html]]
@@ -71,10 +74,6 @@ are modified:
 #+BEGIN_SRC bash
 browser-sync dev/pygments/ -s -w --files "./dev/pygments/*"
 #+END_SRC
-
-# FIXME
-# You can use it, to develop the theme for highlightjs modifying the
-# file [[./dev/highlightjs/discreet-theme.css]].
 
 *** generate index.html using ~pygmentize~ for generating the code snippets
 
