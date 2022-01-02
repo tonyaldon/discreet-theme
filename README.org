@@ -61,3 +61,104 @@ browser-sync dev/highlightjs/ -s -w --files "./dev/highlightjs/*"
 
 You can use it, to develop the theme for highlightjs modifying the
 file [[./dev/highlightjs/discreet-theme.css]].
+** Pygments
+
+By running the following command, you start a server at
+[[http://localhost:3000]] that serve the file [[./dev/pygments/index.html]]
+and reload the browser when file in the directory [[./dev/pygments/]]
+are modified:
+
+#+BEGIN_SRC bash
+browser-sync dev/pygments/ -s -w --files "./dev/pygments/*"
+#+END_SRC
+
+# FIXME
+# You can use it, to develop the theme for highlightjs modifying the
+# file [[./dev/highlightjs/discreet-theme.css]].
+
+*** generate index.html using ~pygmentize~ for generating the code snippets
+
+Install ~pygments~ Python module and its command line ~pygmentize~.
+
+#+BEGIN_SRC bash
+python3 --version
+#+END_SRC
+
+#+RESULTS:
+: Python 3.9.2
+
+#+BEGIN_SRC bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install Pygments
+which pygmentize
+#+END_SRC
+
+gives you:
+
+: /home/tony/work/projects/discreet-theme/.venv/bin/pygmentize
+
+The file [[./dev/pygments/index.html]] has been generated using ~pygmentize~
+command line evaluating the following ~elisp~ code:
+
+#+BEGIN_SRC emacs-lisp
+(setq pygm-cmd (concat default-directory ".venv/bin/pygmentize"))
+
+(defun pygm (code lang)
+  "Return an html string with CODE formatted with `pygmentize'
+following LANG language."
+  (let* ((id (sha1 (mapconcat #'number-to-string (current-time) "")))
+         (tmpfile (concat "/tmp/pygmentize-" id))
+         (cmd (concat pygm-cmd
+                      " -f html"
+                      " -l " lang
+                      " " tmpfile)))
+    (with-temp-file tmpfile (insert code))
+    (shell-command-to-string cmd)))
+
+(with-temp-file "dev/pygments/index.html"
+  (insert
+   (concat "<html><head><meta charset=\"UTF-8\"/>"
+           "<style> h1,h2 {color:white;} </style>"
+           ;; "<style> body {background:#121212;} h1,h2 {color:white;} </style>"
+           "<link rel=\"stylesheet\" href=\"discreet-theme-pygments.css\">"
+           "<title>discreet theme</title>"
+           "</head>"
+           "<body>"))
+  (dolist (f (--filter (not (member it '("." "..")))
+                       (directory-files "dev/fixtures")))
+    (let ((code (with-temp-buffer
+                  (insert-file-contents (concat "./dev/fixtures/" f))
+                  (buffer-substring-no-properties (point-min) (point-max))))
+          (lang (car (s-split "[.]" f))))
+      (insert (pygm code lang))))
+  (insert "</body>"))
+#+END_SRC
+
+*** generate file discreet-theme-pygments.css
+
+We generate [[./discreet-theme-pygments.css]] from the file [[./discreet.py]]
+following these 3 steps:
+
+1) we make the style ~discreet~ available to ~pygmentize~ by making the
+   following symbolic link:
+
+   #+BEGIN_SRC bash :results none
+   ln -s `pwd`/discreet.py ./.venv/lib/python3.9/site-packages/pygments/styles/
+   #+END_SRC
+
+2) we generate the css file [[./dev/pygments/discreet-theme-pygments.css]]
+   by running the following command:
+
+   #+BEGIN_SRC bash :results none
+   pygmentize -S discreet -f html -a .highlight > ./dev/pygments/discreet-theme-pygments.css
+   #+END_SRC
+
+3) Now, we can work on the file [[./discreet.py]], rerun the step 2,
+   and look the changes at [[http://localhost:3000]] (with the hot
+   reloading describe above).  When we are happy with the theme, we
+   just have to copy it at the top of this repository:
+
+   #+BEGIN_SRC bash :results none
+   cp ./dev/pygments/discreet-theme-pygments.css discreet-theme-pygments.css
+   #+END_SRC
