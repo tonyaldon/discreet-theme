@@ -1,9 +1,10 @@
 * About
 
 This repository provides two versions close to my theme
-[[https://github.com/tonyaldon/emacs.d/blob/master/themes/discreet-theme.el][discreet-theme.el]] I'm using within emacs.
+[[https://github.com/tonyaldon/emacs.d/blob/master/themes/discreet-theme.el][discreet-theme.el]] I'm using within emacs to highlight code:
 
-One is to be used with [[http://highlightjs.org][Highlight.js]] and the other with [[https://pygments.org/][Pygments]].
+1) [[./discreet-theme.css]] to be used with [[http://highlightjs.org][Highlight.js]],
+2) [[./discreet-theme-pygments.css]] to be used with [[https://pygments.org/][Pygments]].
 
 [[./discreet-theme.png]]
 
