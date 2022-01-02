@@ -13,7 +13,7 @@
   <body>
 		<div style="padding:0rem 3rem;">
 		<h1 style="text-align:center;">Discreet theme for highlightjs</h1>
-	<div>
+  <div>
       <h2>Bash</h2>
       <pre><code class="bash">#!/bin/bash
 
@@ -115,6 +115,29 @@ class SomeClass:
 &gt;&gt;&gt; message = &#39;&#39;&#39;interpreter
 ... prompt&#39;&#39;&#39;
 </code></pre>
+    </div>
+
+    <div>
+      <h2>Clojure</h2>
+      <p> I don't know why I can't make Highlight.js works with
+        Clojure code.</p>
+      <p>This why I gave a try to Pygments.</p>
+      <pre><code class="clojure">(defn str
+  &quot;With no args, returns the empty string. With one arg x, returns
+  x.toString().  (str nil) returns the empty string. With more than
+  one arg, returns the concatenation of the str values of the args.&quot;
+  {:tag String
+  :added &quot;1.0&quot;
+  :static true}
+  (^String [] &quot;&quot;)
+  (^String [^Object x]
+           (if (nil? x) &quot;&quot; (. x (toString))))
+  (^String [x &amp; ys]
+           ((fn [^StringBuilder sb more]
+                (if more
+                    (recur (. sb  (append (str (first more)))) (next more))
+                  (str sb)))
+            (new StringBuilder (str x)) ys)))</code></pre>
     </div>
 		</div>
 	</body>
