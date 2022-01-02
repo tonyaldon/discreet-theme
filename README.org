@@ -40,16 +40,23 @@ it in your html file by adding the following line the ~<head>~ tag:
 
 * Dev
 
-The ~dev/public/index.html~ contains some chunks of code (~bash~,
-~html~, ~css~, ~javascript~, ~python~) and can be serve as static
-files with ~express~. To do so, follow the 3 steps below.
+The directory [[./dev/fixtures/]] contains some chunks of code in
+different languages (~bash~, ~html~, ~css~, ~javascript~, ~python~, ~clojure~)
+that you can use to modify the ~css~ of the theme.
 
-1. Install dev depencies by running the command:
+I use [[https://browsersync.io/][browser-sync]] to serve files and reload the browser when files
+are modified.
 
-   : npm install
+** highlightjs
 
-2. Serve the app and watch the files by running the command:
+By running the following command, you start a server at
+[[http://localhost:3000]] that serve the file [[./dev/highlightjs/index.html]]
+and reload the browser when file in the directory [[./dev/highlightjs/]]
+are modified:
 
-   : npm run dev
+#+BEGIN_SRC bash
+browser-sync dev/highlightjs/ -s -w --files "./dev/highlightjs/*"
+#+END_SRC
 
-3. Open the ~index.html~ in your browser at the url ~localhost:3000/index.html~.
+You can use it, to develop the theme for highlightjs modifying the
+file [[./dev/highlightjs/discreet-theme.css]].
