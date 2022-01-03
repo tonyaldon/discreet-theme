@@ -8,6 +8,19 @@ This repository provides two versions close to my theme
 
 [[./discreet-theme.png]]
 
+* Note
+
+I was happy with Highlightjs but I can't make it work correctly with
+Clojure code.  I don't know why.
+
+So I tried Pygments.  It works but this is still not as I want.
+
+I need to find something that better suits my tastes.
+
+But for now, I stay with Pygments.
+
+Maybe I'll use [[https://github.com/hniksic/emacs-htmlize][emacs-htmlize]].  I don't know.
+
 * Motivation
 
 There already exists cool dark themes out there for highlightjs (see
